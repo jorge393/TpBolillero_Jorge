@@ -9,6 +9,13 @@ namespace tpbolillero.core
         public IAzar Azar { get; set; }
         public Bolillero() { }
         public Bolillero(byte bolillas) => Crearbolillas(bolillas);
+
+        private Bolillero(Bolillero original)
+        {
+            List<byte> Adentro2 = new(original.Adentro);
+            List<byte> Afuera2 = new(original.Afuera);
+
+        }
         private void Crearbolillas(byte numero)
         {
             Adentro = new List<byte>();
@@ -37,7 +44,6 @@ namespace tpbolillero.core
             for ( int i = 0;i < cantidad; i++)
             {
                 Reingresar();
-
                 if (Jugar(bolillas))
                 {
                     contador++;
@@ -48,7 +54,7 @@ namespace tpbolillero.core
 
         public object Clone()
         {
-            
+            return new Bolillero(this);
         }
     }
 }
