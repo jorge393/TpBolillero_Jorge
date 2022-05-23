@@ -15,15 +15,20 @@ namespace tpbolillero.core
         {
             
             Task<long>[] tareas = new Task<long>[hilosenuso];
-            long suma = 0; 
-            for (int i = 1; i < numtareas; i++)
+            var divdehilos = numtareas/hilosenuso;
+            for (int i = 1; i < hilosenuso; i++)
             {
-                Bolillero clon = (Bolillero)bolillero.Clone();
-                tareas[i] = Task<long>.Run(() => SimularSinHilos(clon, jugadas, numtareas));
-                Task<long>.WaitAll(tareas);
-                tareas.Sum(suma + tareas.Result);
+                for (int b = 0; b < divdehilos; b++)
+                {
+                    Bolillero clon = (Bolillero)bolillero.Clone();
+                    tareas[i] = Task<long>.Run(() => SimularSinHilos(clon, jugadas, numtareas));
+                    
+                }
             }
-            return 1;
+            
+                Task<long>.WaitAll(tareas);
+                
+            return tareas.Sum(x => x.Result);
             
         }
 
