@@ -31,6 +31,10 @@ namespace tpbolillero.core
             return tareas.Sum(x => x.Result);
             
         }
+        public async Task<long> SimularConHilosAsync()
+        {
+            
+        }
 
     }
 }
